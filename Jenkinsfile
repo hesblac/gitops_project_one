@@ -135,9 +135,8 @@ pipeline {
                 
                 // // Execute the curl command
                 // sh(curlCmd)
-                // }
+                }
             }
         }
     }
 }
-
