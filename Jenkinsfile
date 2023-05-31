@@ -103,15 +103,15 @@ pipeline {
                 def jenkinsUrl = "http://54.166.45.158:8080"
                 def token = "111158f4ea1a118e8650f4b23f39a744d6"
                 def username = "hesblac"
-                
-                // Create the Jenkins API URL for triggering the job
-                def apiUrl = "${jenkinsUrl}/job/${jobName}/build"
+                def currentBuildNumber = env.BUILD_NUMBER
 
-                // Set the environmental variable value
-                def parameterValue = env.IMAGE_TAG
-                // Set the parameters to be passed to the triggered job
+
+                 // Create the Jenkins API URL for triggering the new job
+                def apiUrl = "${jenkinsUrl}/job/${jobName}/buildWithParameters"
+                
+                // Set the parameters to be passed to the new job
                 def params = [
-                    "IMAGE_TAGG=${parameterValue}"
+                    "SOURCE_BUILD_NUMBER=${currentBuildNumber}"
                 ]
                 
                 // Build the curl command
@@ -119,6 +119,22 @@ pipeline {
                 
                 // Execute the curl command
                 sh(curlCmd)
+
+                // // Create the Jenkins API URL for triggering the job
+                // def apiUrl = "${jenkinsUrl}/job/${jobName}/build"
+
+                // // Set the environmental variable value
+                // def parameterValue = env.IMAGE_TAG
+                // // Set the parameters to be passed to the triggered job
+                // def params = [
+                //     "IMAGE_TAGG=${parameterValue}"
+                // ]
+                
+                // // Build the curl command
+                // def curlCmd = "curl -X POST -u ${username}:${token} --data-urlencode ${params.collect { "\"${it}\"" }.join('&')} ${apiUrl}"
+                
+                // // Execute the curl command
+                // sh(curlCmd)
                 }
             }
         }
