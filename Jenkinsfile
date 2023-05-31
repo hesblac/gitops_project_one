@@ -75,14 +75,13 @@ pipeline {
             steps{
 
                 script{
-                    sh 'echo $IMAGE_TAG'
                     sh '''
                     # Set Jenkins authentication credentials
                     JENKINS_USER=hesblac
-                    JENKINS_TOKEN=11866b414dce2fb8b0196ed964ca9c09e2
+                    JENKINS_TOKEN=111158f4ea1a118e8650f4b23f39a744d6
 
                     # Set URL of Jenkins job to trigger
-                    JOB_URL=http://3.145.132.78:8080/job/gitops-argocd-CDD/
+                    JOB_URL=http://54.166.45.158:8080/job/gitops_argocd_CD/
 
                     # Build curl command to trigger Jenkins job with parameters
                     CURL_CMD="curl -v -u $JENKINS_USER:$JENKINS_TOKEN \
@@ -93,7 +92,6 @@ pipeline {
                     # Execute curl command
                     eval $CURL_CMD
                 ''' 
-                    sh 'echo $IMAGE_TAG'
                 }
             }
         }
