@@ -106,28 +106,12 @@ pipeline {
                 def currentBuildNumber = env.BUILD_NUMBER
 
 
-                 // Create the Jenkins API URL for triggering the new job
-                def apiUrl = "${jenkinsUrl}/job/${jobName}/buildWithParameters"
+                //  // Create the Jenkins API URL for triggering the new job
+                // def apiUrl = "${jenkinsUrl}/job/${jobName}/buildWithParameters"
                 
-                // Set the parameters to be passed to the new job
-                def params = [
-                    "SOURCE_BUILD_NUMBER=${currentBuildNumber}"
-                ]
-                
-                // Build the curl command
-                def curlCmd = "curl -X POST -u ${username}:${token} --data-urlencode ${params.collect { "\"${it}\"" }.join('&')} ${apiUrl}"
-                
-                // Execute the curl command
-                sh(curlCmd)
-
-                // // Create the Jenkins API URL for triggering the job
-                // def apiUrl = "${jenkinsUrl}/job/${jobName}/build"
-
-                // // Set the environmental variable value
-                // def parameterValue = env.IMAGE_TAG
-                // // Set the parameters to be passed to the triggered job
+                // // Set the parameters to be passed to the new job
                 // def params = [
-                //     "IMAGE_TAGG=${parameterValue}"
+                //     "SOURCE_BUILD_NUMBER=${currentBuildNumber}"
                 // ]
                 
                 // // Build the curl command
@@ -135,6 +119,22 @@ pipeline {
                 
                 // // Execute the curl command
                 // sh(curlCmd)
+
+                // Create the Jenkins API URL for triggering the job
+                def apiUrl = "${jenkinsUrl}/job/${jobName}/build"
+
+                // Set the environmental variable value
+                def parameterValue = env.IMAGE_TAG
+                // Set the parameters to be passed to the triggered job
+                def params = [
+                    "IMAGE_TAGG=${parameterValue}"
+                ]
+                
+                // Build the curl command
+                def curlCmd = "curl -X POST -u ${username}:${token} --data-urlencode ${params.collect { "\"${it}\"" }.join('&')} ${apiUrl}"
+                
+                // Execute the curl command
+                sh(curlCmd)
                 }
             }
         }
