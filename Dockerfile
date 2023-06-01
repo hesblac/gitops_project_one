@@ -1,4 +1,4 @@
-FROM python:3.9-bullseye
+FROM python:3.9-slim-bullseye
 RUN pip install flask
 WORKDIR /app
 COPY app.py  .

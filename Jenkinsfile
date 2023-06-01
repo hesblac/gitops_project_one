@@ -4,11 +4,11 @@ pipeline {
 
     environment{
 
-        DOCKERHUB_USERNAME = 'hesblac'
+        DOCKERHUB_USERNAME = 'hesblac'  
         APP_NAME = "gitops-argo-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
-        REGISTRY_CRED = "dockerhub-id"
+        REGISTRY_CRED = "dockerhub_id"
     }
 
     stages{
@@ -28,7 +28,7 @@ pipeline {
             steps{
 
                 script{
-                    git credentialsId: 'github',
+                    git credentialsId: 'github_id',
                     url: 'https://github.com/hesblac/gitops_project_one.git',
                     branch: 'main'
                     // withCredentials([gitUsernamePassword(credentialsId: 'github', gitToolName: 'Default')]) {
@@ -58,7 +58,7 @@ pipeline {
                     }
                 }
             }
-        }
+        } 
         // stage('Delete Docker images'){
 
         //     steps{
@@ -75,8 +75,8 @@ pipeline {
             steps {
                 script {
                 def jobName = "gitops_argocd_CD"
-                def jenkinsUrl = "http://54.166.45.158:8080"
-                def token = "111158f4ea1a118e8650f4b23f39a744d6"
+                def jenkinsUrl = "http://44.202.162.133:8080"
+                def token = "1187b1933bc06c26d5c57c89dca2baf2bc"
                 def username = "hesblac"
                 def currentBuildNumber = env.BUILD_NUMBER
 
